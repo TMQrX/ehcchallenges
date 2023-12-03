@@ -340,13 +340,71 @@ Cũng tương tự như bài trên nhưng ta thay username bằng username bandi
 
 *FLAG : 8ca319486bfbbc3663ea0fbe81326349*
 
-# Level 24 25 26
+# Level 24
 
-Skip <(")
+![Alt text](img2/image-5.png)
+
+Giống bài trước, thực hiện yêu cầu đề bài nên mình sẽ cd và cat file *cronjob_bandit24.sh* xem có gì
+
+![Alt text](img2/image-1.png)
+
+Sau đó bạn tiếp tục thực hiện theo yêu cầu là cat file đến directory trong bandit24.sh, và cấp quyền cho nó
+
+![Alt text](img2/image-3.png)
+
+![Alt text](img2/image-4.png)
+
+*FLAG : VAfGXJ1PBSsPSnvsjI8p759leLZ9GGar*
+
+# Level 25
+
+![Alt text](img2/image-6.png)
+
+Bài này ta sử dụng bruteforce để xử lý theo yêu cầu của đề bài, ta sử dụng vim và cấp quyền thực thi là có thể hoàn thành
+
+Tạo một file bash trong tmp có nội dung như sau để tạo ra bruteforce
+
+![Alt text](img2/image-7.png)
+
+Cấp quyền chmod 777
+
+![Alt text](img2/image-8.png)
+
+Chạy file quan.sh
+
+![Alt text](img2/image-9.png)
+
+*FLAG : p7TaowMYrmu23Ol8hiZh9UvD0O9hpx8d*
+
+# Level 26
+
+![Alt text](img/image-53.png)
+
+Đầu tiên bạn cần thu nhỏ terminal lại, sau đó truy cập login ssh bằng command bên dưới :
+
+```
+ssh -i bandit26.sshkey -p 2220 -l bandit26 bandit.labs.overthewire.org
+```
+
+Ấn v để chuyển sang vim sau đó nhập lệnh
+
+```
+:set shell =/bin/bash 
+:shell
+```
+
+Dùng lệnh cat để đọc flag trong file text.txt
+
+```
+cat /etc/bandit_pass/bandit26
+```
+![Alt text](img2/image-10.png)
+
+*FLAG : c7GvcKlw9mC7aUQaPx7nwFstuAIBw1o1*
 
 # Level 27
 
-![Alt text](img/image-53.png)
+![Alt text](img2/image-11.png)
 
 Thu nhỏ terminal lại, tiếp theo sử login vào ssh và nhấn v để mở command của vim. Sau đó nhập : 
 ```
@@ -358,7 +416,124 @@ Như vậy là ta đã đăng nhập ssh thành công.
 
 ![Alt text](img/image-54.png)
 
-# Level 28 29 30 31 32 33 34 
+*FLAG : YnQpBuifNMas1hcUFk70ZmqkhUU2EuaS*
 
-DONE <(")
+# Level 28
 
+![Alt text](img2/image-12.png)
+
+Chúng ta sẽ được làm quen với lệnh git ở bài này. Ta git clone repo của bài yêu cầu về bằng lệnh : 
+```
+git clone ssh://bandit27-git@localhost:2220/home/bandit27-git/repo
+```
+![Alt text](img2/image-13.png)
+
+Đọc file README trong repo
+
+![Alt text](img2/image-14.png)
+
+*FLAG : AVanL161y9rsbcJIsFHuw35rjaOM19nR*
+
+# Level 29
+
+![Alt text](img2/image-15.png)
+
+Giống bài trước, tiếp tục git clone repo về và đọc file README
+
+![Alt text](img2/image-16.png)
+
+Có vẻ như không tìm thấy flag trong này, chúng ta hãy xem những commit của file này xem có sự thay đổi như nào bằng lệnh :
+```python
+git log
+```
+
+![Alt text](img2/image-17.png)
+
+Ta cùng xem commit cuối cùng này bằng :
+
+```
+git show
+```
+
+![Alt text](img2/image-18.png)
+
+*FLAG : tQKvmcwNYcFS6vmPHIUSI3ShmsrQZK8S*
+
+# Level 30
+
+![Alt text](img2/image-19.png)
+
+Làm y hệt như các bước vừa rồi
+
+![Alt text](img2/image-20.png)
+
+Không có flag trong này, nên chúng ta hãy check xem các branch của nó có gì không bằng lệnh : 
+
+```
+git branch -a
+```
+
+Checkout hết nội dung folder dev bằng lệnh :
+
+```
+git checkout remotes/origin/dev
+```
+
+![Alt text](img2/image-21.png)
+
+*FLAG : xbhV3HpNGlTIdnjUrdAlPzc2L6y9EOnS*
+
+# Level 31
+
+![Alt text](img2/image-22.png)
+
+![Alt text](img2/image-23.png)
+
+Chúng ta có thể dùng lệnh sau để xem chi tiết nhãn repo này :
+
+```
+git tag
+```
+
+![Alt text](img2/image-24.png)
+
+*FLAG : OoffzGDlzhAlerFJ2cAiz1D41JW1Mhmt*
+
+# Level 32
+
+![Alt text](img2/image-25.png)
+
+Đối với bài này ta cần sử dụng git push
+
+![Alt text](img2/image-26.png)
+
+git upload và git push thêm lần nữa ta được flag
+
+![Alt text](img2/image-27.png)
+
+*FLAG : rmCBvG56y58BXzv98yZGdO7ATVL5dW8y*
+
+# Level 33
+
+![Alt text](img2/image-28.png)
+
+Bài này chúng ta có thể sử dụng $0 vì $0 biểu diễn cho một shell hay bắt đầu của một shell
+
+![Alt text](img2/image-29.png)
+
+*FLAG : odHo63fHiFqcWWJG9rLiLDtPm45KzUKy*
+
+# Level 34
+
+![Alt text](img2/image-30.png)
+
+??? 404 Not Found
+
+# Lời Kết
+
+<details>
+  <summary>Đừng nhấn</summary>
+  
+  Wup dài vcl dkm EHC <()
+  
+</details>
