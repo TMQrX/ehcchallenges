@@ -278,7 +278,7 @@ Sử dụng openssl giống như bài trước và ta có file RSA encryption. L
 
 # Level 18
 
-![Alt text](img/image-41.png)
+![Alt text](img2/image98.png)
 
 Chúng ta cần tìm đoạn mã duy nhất không bị thay đổi trong 2 file password.old và password.new
 
@@ -300,7 +300,7 @@ Sau khi đăng nhập bằng ssh, mình ngay lập tức bị disconnect ra. V�
 
 # Level 20
 
-![Alt text](img/image-45.png)
+![Alt text](img2/image97.png)
 
 Đề bài yêu cầu chúng ta chạy file *bandit20-do* nhưng lưu ý ở đây là phải sử dụng setuid. Khi sử dụng setuid để thực thi file, chúng ta sẽ trở thành chủ sở hữu tạm thời của file đó
 
