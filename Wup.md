@@ -534,6 +534,6 @@ Bài này chúng ta có thể sử dụng $0 vì $0 biểu diễn cho một shel
 <details>
   <summary>Đừng nhấn</summary>
   
-  Wup dài vcl dkm EHC <()
+  Wup dài vcl dkm EHC <(")
   
 </details>
