@@ -9,22 +9,25 @@
     </form>
     <?php
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $a = isset($_POST["user"]) ? (string)$_POST["user"] : "";
-        $b = isset($_POST["pass"]) ? (string)$_POST["pass"] : "";
-        if (!empty($a)) {
-            if (preg_match('/^[a-zA-Z]+$/', $a)) {
-                if ($a == 'admin' && $b == '123123') {
-                    echo 'hello admin';
-                } elseif ($a == 'user' && $b == '123456') {
-                    echo 'hello user';
+        if (isset($_POST["user"]) && isset($_POST["pass"])) {
+            $a = (string)$_POST["user"];
+            $b = (string)$_POST["pass"];
+    
+            if (!empty($a)) {
+                if (preg_match('/^[a-zA-Z]+$/', $a)) {
+                    if ($a == 'admin' && $b == '123123') {
+                        echo 'hello admin';
+                    } elseif ($a == 'user' && $b == '123456') {
+                        echo 'hello user';
+                    } else {
+                        echo 'user or password wrong bro';
+                    }
                 } else {
-                    echo 'user or password wrong bro';
+                    echo 'sql injection dc cc';
                 }
             } else {
-                echo 'sql injection dc cc';
+                echo 'nhap username di em';
             }
-        } else {
-            echo 'nhap username di em';
         }
     }
     ?>
