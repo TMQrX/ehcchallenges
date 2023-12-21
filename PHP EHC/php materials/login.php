@@ -23,7 +23,7 @@
                         echo 'user or password wrong bro';
                     }
                 } else {
-                    echo 'sql injection dc cc';
+                    echo 'sql injection ho cai';
                 }
             } else {
                 echo 'nhap username di em';
