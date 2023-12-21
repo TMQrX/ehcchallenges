@@ -39,6 +39,10 @@
                 alert("nhap username di em");
                 return false;
             }
+            if (password.trim() === "") {
+                alert("nhap password di em");
+                return false;
+            }
             return true;
         }
     </script>
