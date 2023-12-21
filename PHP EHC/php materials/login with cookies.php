@@ -23,28 +23,37 @@
 </head>
 <body>
     <h2>Login</h2>
-    <form action="" method="POST" onsubmit="return validateForm('login')">
+    <form action="" method="POST" onsubmit="return validateForm()">
         Username <br><input type="text" name="user" id="username" required><br>
-        Password <br><input type="password" name="pass" required><br>
+        Password <br><input type="password" name="pass" id="password" required><br>
         <label>
             <input type="checkbox" name="remember_me"> Remember Me
         </label><br>
         <input type="submit" value="Login">
     </form>
     <?php
+    session_start();
+
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($_POST["user"]) && isset($_POST["pass"])) {
             $a = (string)$_POST["user"];
             $b = (string)$_POST["pass"];
+            if (isset($_POST["remember_me"])) {
+                $rememberedUser = $_POST["user"];
+                setcookie("remembered_user", $rememberedUser, time() + (86400 * 30), "/");
+            }
     
             if (!empty($a) && !empty($b)) {
-                if (preg_match('/^[a-zA-Z]+$/', $a)) {
-                    if ($a == 'admin' && $b == '123123') {
-                        echo 'hello admin';
-                    } elseif ($a == 'user' && $b == '123456') {
-                        echo 'hello user';
+                if (preg_match('/^[a-zA-Z1-9]+$/', $a)) {
+                    if (isset($_SESSION['registered_user']) && $_SESSION['registered_user']['username'] == $a) {
+                        $hashed_password = $_SESSION['registered_user']['hashed_password'];
+                        if (password_verify($b, $hashed_password)) {
+                            echo 'Hello ' . $a;
+                        } else {
+                            echo 'Incorrect password';
+                        }
                     } else {
-                        echo 'user or password wrong bro';
+                        echo 'User not registered';
                     }
                 } else {
                     echo 'sql injection ho cai';
@@ -57,27 +66,8 @@
     ?>
 
     <script>
-        function validateForm() {
-            var username = document.getElementById("username").value;
-            if (username.trim() === "") {
-                alert("nhap username di em");
-                return false;
-            }
-            if (password.trim() === "") {
-                alert("nhap password di em");
-                return false;
-            }
-            return true;
-        }
-    </script>
-
-    <script>
-        // Hiển thị cookie nếu đã lưu thông tin
         document.addEventListener("DOMContentLoaded", function() {
             var rememberedUser = getCookie("remembered_user");
-            if (rememberedUser) {
-                alert("Remembered User: " + rememberedUser);
-            }
         });
 
         function getCookie(cookieName) {
@@ -98,8 +88,9 @@
     </script>
 
     <h2>Register</h2>
-    <form action="" method="POST" onsubmit="return validateForm('register')">
+    <form action="" method="POST" onsubmit="return validateRegisterForm()">
         Username <br><input type="text" name="username" id="reg_username" required><br>
+        Password <br><input type="password" name="password" id="reg_password" required><br>
         Email <br><input type="email" name="email" id="email" required><br>
         Select title
         <br>
@@ -120,11 +111,21 @@
     <?php
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $username = isset($_POST["username"]) ? htmlspecialchars($_POST["username"]) : "";
+        $password = isset($_POST["password"]) ? htmlspecialchars($_POST["password"]) : "";
         $email = isset($_POST["email"]) ? htmlspecialchars($_POST["email"]) : "";
         $title = isset($_POST["title"]) ? htmlspecialchars($_POST["title"]) : "";
         $full_name = isset($_POST["full_name"]) ? htmlspecialchars($_POST["full_name"]) : "";
         $company_name = isset($_POST["company_name"]) ? htmlspecialchars($_POST["company_name"]) : "";
-        if (!empty($username) && !empty($email) && !empty($title) && !empty($full_name) && !empty($company_name)) {
+        if (!empty($username) && !empty($password) && !empty($email) && !empty($title) && !empty($full_name) && !empty($company_name)) {
+            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+            $_SESSION['registered_user'] = [
+                'username' => $username,
+                'hashed_password' => $hashed_password,
+                'email' => $email,
+                'title' => $title,
+                'full_name' => $full_name,
+                'company_name' => $company_name,
+            ];
             echo '<script>document.getElementById("registerSuccessMessage").style.display = "block";</script>';
         }
     }
@@ -133,11 +134,12 @@
     <script>
         function validateRegisterForm() {
             var regUsername = document.getElementById("reg_username").value;
+            var regPassword = document.getElementById("reg_password").value;
             var email = document.getElementById("email").value;
             var full_name = document.getElementById("full_name").value;
             var company_name = document.getElementById("company_name").value;
 
-            if (regUsername.trim() === "" || email.trim() === "" || full_name.trim() === "" || company_name.trim() === "") {
+            if (regUsername.trim() === "" || regPassword.trim() === "" || email.trim() === "" || full_name.trim() === "" || company_name.trim() === "") {
                 alert("Please fill in all fields");
                 return false;
             }
