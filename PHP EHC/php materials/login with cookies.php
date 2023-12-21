@@ -41,19 +41,13 @@
                 if (preg_match('/^[a-zA-Z]+$/', $a)) {
                     if ($a == 'admin' && $b == '123123') {
                         echo 'hello admin';
-                        if (isset($_POST["remember_me"])) {
-                            setcookie("remembered_user", $a, time() + 7 * 24 * 60 * 60);
-                        }
                     } elseif ($a == 'user' && $b == '123456') {
                         echo 'hello user';
-                        if (isset($_POST["remember_me"])) {
-                            setcookie("remembered_user", $a, time() + 7 * 24 * 60 * 60);
-                        }
                     } else {
                         echo 'user or password wrong bro';
                     }
                 } else {
-                    echo 'sql injection dc cc';
+                    echo 'sql injection ho cai';
                 }
             } else {
                 echo 'nhap username di em';
@@ -63,13 +57,15 @@
     ?>
 
     <script>
-        function validateForm(formType) {
-            if (formType === 'login') {
-                var username = document.getElementById("username").value;
-                if (username.trim() === "") {
-                    alert("nhap username di em");
-                    return false;
-                }
+        function validateForm() {
+            var username = document.getElementById("username").value;
+            if (username.trim() === "") {
+                alert("nhap username di em");
+                return false;
+            }
+            if (password.trim() === "") {
+                alert("nhap password di em");
+                return false;
             }
             return true;
         }
