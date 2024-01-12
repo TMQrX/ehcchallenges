@@ -44,7 +44,7 @@
                         echo 'user or password wrong bro';
                     }
                 } else {
-                    echo 'sql injection dc cc';
+                    echo 'sql injection ho cai';
                 }
             } else {
                 echo 'nhap username di em';
@@ -54,13 +54,15 @@
     ?>
 
     <script>
-        function validateForm(formType) {
-            if (formType === 'login') {
-                var username = document.getElementById("username").value;
-                if (username.trim() === "") {
-                    alert("nhap username di em");
-                    return false;
-                }
+        function validateForm() {
+            var username = document.getElementById("username").value;
+            if (username.trim() === "") {
+                alert("nhap username di em");
+                return false;
+            }
+            if (password.trim() === "") {
+                alert("nhap password di em");
+                return false;
             }
             return true;
         }

@@ -13,7 +13,7 @@
             $a = (string)$_POST["user"];
             $b = (string)$_POST["pass"];
     
-            if (!empty($a)) {
+            if (!empty($a) && !empty($b)) {
                 if (preg_match('/^[a-zA-Z]+$/', $a)) {
                     if ($a == 'admin' && $b == '123123') {
                         echo 'hello admin';
@@ -23,10 +23,10 @@
                         echo 'user or password wrong bro';
                     }
                 } else {
-                    echo 'sql injection dc cc';
+                    echo 'sql injection ho cai';
                 }
             } else {
-                echo 'nhap username di em';
+                echo 'nhap username hoac password di em';
             }
         }
     }
@@ -37,6 +37,10 @@
             var username = document.getElementById("username").value;
             if (username.trim() === "") {
                 alert("nhap username di em");
+                return false;
+            }
+            if (password.trim() === "") {
+                alert("nhap password di em");
                 return false;
             }
             return true;
